@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+enum EarthStatus: String {
+    case health
+    case normal
+    case worst
+}
+
+class MyPageViewModel: ObservableObject {
+    @Published var actionCount = 0
+    @Published var point = 50
+    @Published var earthStatus: EarthStatus = .health
+}
+
