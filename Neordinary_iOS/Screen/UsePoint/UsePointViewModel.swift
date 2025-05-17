@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+class UsePointViewModel: ObservableObject {
+    @Published var usePointModel: UsePointModel = .sampleData
+}

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct PointView: View {
+    @ObservedObject var usePointViewModel: UsePointViewModel
+    
     var body: some View {
         VStack(spacing: 24) {
             Group {
-                PointCheckView()
+                PointCheckView(usePointViewModel: usePointViewModel)
                 
-                ClearMissionListView()
+                PurchasableItemListView(usePointViewModel: usePointViewModel)
             }
             .padding(.horizontal, 20)
         }
@@ -29,6 +31,8 @@ struct PointView: View {
 }
 
 fileprivate struct PointCheckView: View {
+    @ObservedObject var usePointViewModel: UsePointViewModel
+    
     fileprivate var body: some View {
         HStack {
             Text("나의 포인트")
@@ -42,7 +46,7 @@ fileprivate struct PointCheckView: View {
                     .resizable()
                     .frame(width: 24, height: 24)
                 
-                Text("331P")
+                Text("\(usePointViewModel.usePointModel.myPoint)P")
                     .font(.pretendardFont(.semiBold, size: 20))
                     .foregroundStyle(Color.green200)
             }
@@ -57,18 +61,27 @@ fileprivate struct PointCheckView: View {
 }
 
 // MARK: 완료한 미션 리스트 보여주는 뷰
-fileprivate struct ClearMissionListView: View {
+fileprivate struct PurchasableItemListView: View {
+    @ObservedObject var usePointViewModel: UsePointViewModel
+    
     fileprivate var body: some View {
         ScrollView {
-            ClearMissionRowView()
+            ForEach(
+                usePointViewModel.usePointModel.purchasableItemList,
+                id: \.id
+            ) { mission in
+                PurchasableItemView(mission: mission)
+            }
         }
     }
 }
 
-fileprivate struct ClearMissionRowView: View {
+fileprivate struct PurchasableItemView: View {
+    let mission: PurchasableItem
+    
     fileprivate var body: some View {
         HStack {
-            Image(.PointList.img1)
+            Image(mission.image)
                 .resizable()
                 .frame(width: 72, height: 72)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -76,11 +89,11 @@ fileprivate struct ClearMissionRowView: View {
             Spacer().frame(width: 24)
             
             VStack(alignment: .leading, spacing: 26) {
-                Text("오가닉 코튼 자수 손수건")
+                Text(mission.title)
                     .font(.pretendardFont(.semiBold, size: 16))
                     .foregroundStyle(Color.gray600)
                 
-                Text("260P")
+                Text("\(mission.point)P")
                     .font(.pretendardFont(.semiBold, size: 20))
                     .foregroundStyle(Color.green200)
             }
@@ -97,5 +110,5 @@ fileprivate struct ClearMissionRowView: View {
 }
 
 #Preview {
-    PointView()
+    PointView(usePointViewModel: .init())
 }
