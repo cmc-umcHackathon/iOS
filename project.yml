@@ -14,5 +14,11 @@ targets:
     dependencies:
       - sdk: MapKit.framework
       - sdk: CoreLocation.framework
-    info:
-      path: Neordinary_iOS/Info.plist
+      - package: https://github.com/Alamofire/Alamofire
+        requirement: upToNextMajor 5.10.2
+      - package: https://github.com/Moya/Moya
+        requirement: upToNextMajor 15.0.3
+      - package: https://github.com/onevcat/Kingfisher
+        requirement: upToNextMajor 8.3.2
+      - package: https://github.com/kakao/kakao-ios-sdk
+        requirement: upToNextMajor 2.24.2
