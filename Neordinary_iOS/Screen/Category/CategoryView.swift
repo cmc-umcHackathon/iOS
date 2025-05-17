@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CategoryView: View {
-    @StateObject private var categoryViewModel: CategoryViewModel = .init()
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @ObservedObject var imagePickerViewModel: ImagePickerViewModel
+    @State private var showPhotosPicker = false
     
     var body: some View {
         VStack {
@@ -16,13 +19,31 @@ struct CategoryView: View {
             
             Spacer().frame(height: 24)
             
-            ActivityCardView(categoryViewModel: categoryViewModel)
+            ActivityCardView(
+                showPhotosPicker: $showPhotosPicker,
+                categoryViewModel: categoryViewModel
+            )
             
             Spacer().frame(height: 30)
             
             ActivityListView(categoryViewModel: categoryViewModel)
         }
-        .background(Color.gray100)
+        .background(
+            Image(.Category.bgImg)
+                .resizable()
+                .ignoresSafeArea()
+        )
+        .photosPicker(
+            isPresented: $showPhotosPicker,
+            selection: $imagePickerViewModel.selectedItems,
+            maxSelectionCount: 1,
+            matching: .images
+        )
+        .onChange(of: imagePickerViewModel.selectedItems) { oldItems, newItems in
+            Task {
+                await imagePickerViewModel.convertItemsToImages()
+            }
+        }
     }
 }
 
@@ -56,20 +77,68 @@ fileprivate struct HeaderBar: View {
 }
 
 fileprivate struct ActivityCardView: View {
+    @Binding var showPhotosPicker: Bool
     @ObservedObject var categoryViewModel: CategoryViewModel
     
     fileprivate var body: some View {
+        if categoryViewModel.selectedActivity != nil {
+            activityView
+        } else {
+            finishActivityView
+        }
+    }
+    
+    private var header: some View {
+        return HStack {
+            switch categoryViewModel.headerButtonState {
+            case .defaultValue:
+                failBtn
+                Spacer()
+                okBtn
+            case .success:
+                Spacer()
+                okBtn
+            case .fail:
+                failBtn
+                Spacer()
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    private var okBtn: some View {
+        Button {
+            withAnimation {
+                categoryViewModel.updateCurrentAndMoveNext(to: .success)
+                showPhotosPicker = true
+            }
+        } label: {
+            Image(.Category.okIcon)
+        }
+    }
+    
+    private var failBtn: some View {
+        Button {
+            withAnimation {
+                categoryViewModel.updateCurrentAndMoveNext(to: .fail)
+            }
+        } label: {
+            Image(.Category.cancelIcon)
+        }
+    }
+    
+    private var activityView: some View {
         VStack {
             Spacer().frame(height: 20)
             
             header
             
-            Text("활동명")
+            Text(categoryViewModel.selectedActivity?.title ?? "활동명")
                 .font(.pretendardFont(.semiBold, size: 20))
             
             Spacer().frame(height: 12)
             
-            Text("활동 설명을 적습니다.")
+            Text(categoryViewModel.selectedActivity?.description ?? "활동 설명")
                 .font(.pretendardFont(.regular, size: 14))
             
             Spacer().frame(height: 24)
@@ -78,37 +147,35 @@ fileprivate struct ActivityCardView: View {
             
             Spacer().frame(height: 24)
             
-            Text("활동시감소멘트")
+            Text(categoryViewModel.selectedActivity?.impactMessage ?? "장려메세지")
                 .font(.pretendardFont(.regular, size: 16))
                 .foregroundStyle(Color.gray500)
             
             Spacer().frame(height: 24)
         }
+        .frame(width: 304, height: 356)
         .background(
             RoundedRectangle(cornerRadius: 30)
-                .fill(Color.white000)
+                .fill(
+                    categoryViewModel.selectedActivity?.isSuccess.backgroundColor ?? Color.white000
+                )
         )
         .padding(.horizontal, 35)
     }
     
-    private var header: some View {
-        return HStack {
-            Button {
-                print("cancel")
-            } label: {
-                Image(.Category.cancelIcon)
-            }
-
-            Spacer()
-            
-            Button {
-                print("OK")
-            } label: {
-                Image(.Category.okIcon)
-            }
-
+    private var finishActivityView: some View {
+        VStack(spacing: 16) {
+            Text("오늘의 활동을 모두 마쳤어요!")
+                .font(.pretendardFont(.semiBold, size: 18))
+                .foregroundColor(.black)
         }
+        .frame(width: 304, height: 356)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Color.gray200)
+        )
         .padding(.horizontal, 20)
+        .multilineTextAlignment(.center)
     }
 }
 
@@ -122,7 +189,10 @@ fileprivate struct ActivityListView: View {
                     categoryViewModel.categoryModel.categories,
                     id: \.id
                 ) { category in
-                    ActivityRowView(categoryListModel: category)
+                    ActivityRowView(
+                        categoryListModel: category,
+                        categoryViewModel: categoryViewModel
+                    )
                 }
             }
             .padding(.horizontal, 20)
@@ -132,14 +202,20 @@ fileprivate struct ActivityListView: View {
 
 fileprivate struct ActivityRowView: View {
     let categoryListModel: CategoryListModel
+    @ObservedObject var categoryViewModel: CategoryViewModel
     
     fileprivate var body: some View {
-        
         Button {
-            print(categoryListModel.title)
+            withAnimation(.easeIn(duration: 0.1)) {
+                categoryViewModel.selectedActivity = categoryListModel
+            }
         } label: {
             HStack {
-                Image(.Category.leafIcon)
+                Image(
+                    categoryListModel.isSuccess == .success
+                    ? .Category.leafIcon
+                    : .Category.unselectLeafIcon
+                )
                 
                 Text(categoryListModel.title)
                     .font(.pretendardFont(.regular, size: 16))
@@ -175,5 +251,5 @@ fileprivate struct ActivityRowView: View {
 }
 
 #Preview {
-    CategoryView()
+    CategoryView(categoryViewModel: .init(), imagePickerViewModel: .init())
 }

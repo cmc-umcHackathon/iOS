@@ -12,24 +12,18 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $router.path) {
-            Button {
-                router.push(.login)
-            } label: {
-                Text("Login")
-            }
+            TodayMissionView(todayMissionViewModel: .init(router: router))
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                    case .categoryDetail:
+                        CategoryView(
+                            categoryViewModel: .init(),
+                            imagePickerViewModel: .init()
+                        )
+                        .navigationBarBackButtonHidden()
+                    }
+                }
         }
-        .navigationDestination(for: Route.self) { route in
-            switch route {
-            case .login:
-                LoginView()
-            }
-        }
-    }
-}
-
-struct LoginView: View {
-    var body: some View {
-        Text("Login")
     }
 }
 
