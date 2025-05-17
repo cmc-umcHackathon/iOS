@@ -64,12 +64,12 @@ fileprivate struct ActivityCardView: View {
             
             header
             
-            Text("활동명")
+            Text(categoryViewModel.selectedActivity?.title ?? "활동명")
                 .font(.pretendardFont(.semiBold, size: 20))
             
             Spacer().frame(height: 12)
             
-            Text("활동 설명을 적습니다.")
+            Text(categoryViewModel.selectedActivity?.description ?? "활동 설명")
                 .font(.pretendardFont(.regular, size: 14))
             
             Spacer().frame(height: 24)
@@ -78,7 +78,7 @@ fileprivate struct ActivityCardView: View {
             
             Spacer().frame(height: 24)
             
-            Text("활동시감소멘트")
+            Text(categoryViewModel.selectedActivity?.impactMessage ?? "장려메세지")
                 .font(.pretendardFont(.regular, size: 16))
                 .foregroundStyle(Color.gray500)
             
@@ -122,7 +122,10 @@ fileprivate struct ActivityListView: View {
                     categoryViewModel.categoryModel.categories,
                     id: \.id
                 ) { category in
-                    ActivityRowView(categoryListModel: category)
+                    ActivityRowView(
+                        categoryListModel: category,
+                        categoryViewModel: categoryViewModel
+                    )
                 }
             }
             .padding(.horizontal, 20)
@@ -132,11 +135,11 @@ fileprivate struct ActivityListView: View {
 
 fileprivate struct ActivityRowView: View {
     let categoryListModel: CategoryListModel
+    @ObservedObject var categoryViewModel: CategoryViewModel
     
     fileprivate var body: some View {
-        
         Button {
-            print(categoryListModel.title)
+            categoryViewModel.selectedActivity = categoryListModel
         } label: {
             HStack {
                 Image(.Category.leafIcon)
