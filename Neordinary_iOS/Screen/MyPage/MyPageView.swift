@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-fileprivate struct MyPageView: View {
-    @StateObject private var myPageViewModel: MyPageViewModel = .init()
+struct MyPageView: View {
+    @ObservedObject var myPageViewModel: MyPageViewModel
     
-    fileprivate var body: some View {
+    var body: some View {
         VStack {
             TopInformation(myPageViewModel: myPageViewModel)
             
@@ -23,8 +23,8 @@ fileprivate struct MyPageView: View {
             InformationView(myPageViewModel: myPageViewModel)
                 .padding(.horizontal, 20)
             
-            CardView()
-            .padding(.horizontal, 20)
+            CardView(myPageViewModel: myPageViewModel)
+                .padding(.horizontal, 20)
             
         }
         .customNavigationBar {
@@ -142,6 +142,8 @@ fileprivate struct InformationView: View {
 }
 
 fileprivate struct CardView: View {
+    @ObservedObject var myPageViewModel: MyPageViewModel
+    
     fileprivate var body: some View {
         HStack {
             Button {
@@ -172,7 +174,7 @@ fileprivate struct CardView: View {
             )
             
             Button {
-                //
+                myPageViewModel.moveToUsePointView()
             } label: {
                 VStack(alignment: .leading, spacing: 13) {
                     Image(.TodayMission.iconPoint)
@@ -203,5 +205,5 @@ fileprivate struct CardView: View {
 
 
 #Preview {
-    MyPageView()
+    MyPageView(myPageViewModel: .init(router: NavigationRouter()))
 }

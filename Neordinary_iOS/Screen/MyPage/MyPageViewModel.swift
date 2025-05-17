@@ -17,5 +17,15 @@ class MyPageViewModel: ObservableObject {
     @Published var actionCount = 0
     @Published var point = 50
     @Published var earthStatus: EarthStatus = .health
+    
+    private let router: NavigationRouter
+    
+    init(router: NavigationRouter) {
+        self.router = router
+    }
+    
+    func moveToUsePointView() {
+        router.push(.usePoint)
+    }
 }
 

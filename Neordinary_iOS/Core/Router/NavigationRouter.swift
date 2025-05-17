@@ -11,7 +11,10 @@ import SwiftUI
 /// 앱 내 라우팅을 위한 Route 정의
 /// 각각의 케이스는 네비게이션 스택에서 하나의 화면에 해당
 enum Route: Hashable {
+    case home
     case categoryDetail
+    case myPage
+    case usePoint
 }
 
 /// Route와 마찬가지로 케이스 하나당 뷰 하나

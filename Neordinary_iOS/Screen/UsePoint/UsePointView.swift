@@ -1,5 +1,5 @@
 //
-//  PointView.swift
+//  UsePointView.swift
 //  Neordinary_iOS
 //
 //  Created by jaewon Lee on 5/18/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PointView: View {
+struct UsePointView: View {
     @ObservedObject var usePointViewModel: UsePointViewModel
     
     var body: some View {
@@ -162,5 +162,5 @@ fileprivate struct PurchaceItemCheckingView: View {
 }
 
 #Preview {
-    PointView(usePointViewModel: .init())
+    UsePointView(usePointViewModel: .init(router: NavigationRouter()))
 }

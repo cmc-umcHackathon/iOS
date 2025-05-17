@@ -16,7 +16,13 @@ struct ContentView: View {
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .categoryDetail:
-                        CategoryView(categoryViewModel: .init())
+                        CategoryView(categoryViewModel: .init(router: router))
+                    case .home:
+                        TodayMissionView(todayMissionViewModel: .init(router: router))
+                    case .myPage:
+                        MyPageView(myPageViewModel: .init(router: router))
+                    case .usePoint:
+                        UsePointView(usePointViewModel: .init(router: router))
                     }
                 }
         }

@@ -51,7 +51,7 @@ fileprivate struct HeaderBar: View {
             Spacer()
             
             Button {
-                print("My")
+                todayMissionViewModel.moveToMyPage()
             } label: {
                 Image(.TodayMission.iconPersonWhite)
             }
@@ -147,7 +147,7 @@ fileprivate struct TodayMissionCardView: View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
                 
-                Text("오늘의 실천")
+                Text("오늘의 미션")
                     .font(.pretendardFont(.semiBold, size: 20))
                 
                 Text("오늘 내가 지킨 약속, 기후가 변화해요 🍀")

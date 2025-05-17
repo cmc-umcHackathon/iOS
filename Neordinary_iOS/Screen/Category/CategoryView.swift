@@ -26,7 +26,7 @@ struct CategoryView: View {
             ActivityListView(categoryViewModel: categoryViewModel)
         }
         .customNavigationBar(centerView: {
-            HeaderBar()
+            HeaderBar(categoryViewModel: categoryViewModel)
         })
         .background(
             Image(.Category.bgImg)
@@ -48,10 +48,12 @@ struct CategoryView: View {
 }
 
 fileprivate struct HeaderBar: View {
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    
     fileprivate var body: some View {
         HStack {
             Button {
-                print("Home")
+                categoryViewModel.moveToHome()
             } label: {
                 Image(.Category.homeIcon)
             }
@@ -65,7 +67,7 @@ fileprivate struct HeaderBar: View {
             Spacer()
             
             Button {
-                print("My")
+                categoryViewModel.moveToMyPage()
             } label: {
                 Image(.Category.myIcon)
             }
@@ -249,5 +251,5 @@ fileprivate struct ActivityRowView: View {
 }
 
 #Preview {
-    CategoryView(categoryViewModel: .init())
+    CategoryView(categoryViewModel: .init(router: NavigationRouter()))
 }
