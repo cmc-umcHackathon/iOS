@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import KakaoSDKUser
+
+class SignInViewModel: ObservableObject {
+    var kakaoServiceManager = KakaoServiceManager()
+    
+    // MARK: 카카오 로그인
+    func signInWithKakao() {
+        kakaoServiceManager.signIn()
+    }
+}
