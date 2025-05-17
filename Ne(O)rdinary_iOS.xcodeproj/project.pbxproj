@@ -20,7 +20,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Components/.gitkeep,
-				Core/Service/.gitkeep,
 				Core/Utilities/.gitkeep,
 				Models/.gitkeep,
 				Screen/.gitkeep,
