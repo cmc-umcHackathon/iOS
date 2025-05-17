@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import KakaoSDKAuth
 
 @main
 struct Ne_O_rdinary_iOSApp: App {
@@ -16,6 +17,11 @@ struct Ne_O_rdinary_iOSApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(navigationRouter)
+                .onOpenURL { url in
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ = AuthController.handleOpenUrl(url: url)
+                    }
+                }
         }
     }
 }
