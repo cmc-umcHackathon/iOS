@@ -86,7 +86,11 @@ fileprivate struct ActivityCardView: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 30)
-                .fill(Color.white000)
+                .fill(
+                    categoryViewModel.selectedActivity?.isSuccess ?? false
+                    ? Color.green400
+                    : Color.white000
+                )
         )
         .padding(.horizontal, 35)
     }
@@ -142,7 +146,11 @@ fileprivate struct ActivityRowView: View {
             categoryViewModel.selectedActivity = categoryListModel
         } label: {
             HStack {
-                Image(.Category.leafIcon)
+                Image(
+                    categoryListModel.isSuccess
+                    ? .Category.leafIcon
+                    : .Category.unselectLeafIcon
+                )
                 
                 Text(categoryListModel.title)
                     .font(.pretendardFont(.regular, size: 16))
