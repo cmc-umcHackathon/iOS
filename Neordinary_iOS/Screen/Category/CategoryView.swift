@@ -29,7 +29,7 @@ struct CategoryView: View {
             ActivityListView(categoryViewModel: categoryViewModel)
         }
         .background(
-            Image(.Category.bgImg)
+            Image("")//.Category.bgImg
                 .resizable()
                 .ignoresSafeArea()
         )

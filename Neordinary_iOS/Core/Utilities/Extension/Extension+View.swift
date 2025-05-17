@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
     func customeStroke(color: Color, width: CGFloat) -> some View {
         self.modifier(StrokeModifier(strokeSize: width, strokeColor: color))
     }
