@@ -22,7 +22,11 @@ struct CategoryView: View {
             
             ActivityListView(categoryViewModel: categoryViewModel)
         }
-        .background(Color.gray100)
+        .background(
+            Image(.Category.bgImg)
+                .resizable()
+                .ignoresSafeArea()
+        )
     }
 }
 
@@ -59,38 +63,11 @@ fileprivate struct ActivityCardView: View {
     @ObservedObject var categoryViewModel: CategoryViewModel
     
     fileprivate var body: some View {
-        VStack {
-            Spacer().frame(height: 20)
-            
-            header
-            
-            Text(categoryViewModel.selectedActivity?.title ?? "활동명")
-                .font(.pretendardFont(.semiBold, size: 20))
-            
-            Spacer().frame(height: 12)
-            
-            Text(categoryViewModel.selectedActivity?.description ?? "활동 설명")
-                .font(.pretendardFont(.regular, size: 14))
-            
-            Spacer().frame(height: 24)
-            
-            Image(.Category.circleIcon)
-            
-            Spacer().frame(height: 24)
-            
-            Text(categoryViewModel.selectedActivity?.impactMessage ?? "장려메세지")
-                .font(.pretendardFont(.regular, size: 16))
-                .foregroundStyle(Color.gray500)
-            
-            Spacer().frame(height: 24)
+        if categoryViewModel.selectedActivity != nil {
+            activityView
+        } else {
+            finishActivityView
         }
-        .background(
-            RoundedRectangle(cornerRadius: 30)
-                .fill(
-                    categoryViewModel.selectedActivity?.isSuccess.backgroundColor ?? Color.white000
-                )
-        )
-        .padding(.horizontal, 35)
     }
     
     private var header: some View {
@@ -129,6 +106,57 @@ fileprivate struct ActivityCardView: View {
         } label: {
             Image(.Category.cancelIcon)
         }
+    }
+    
+    private var activityView: some View {
+        VStack {
+            Spacer().frame(height: 20)
+            
+            header
+            
+            Text(categoryViewModel.selectedActivity?.title ?? "활동명")
+                .font(.pretendardFont(.semiBold, size: 20))
+            
+            Spacer().frame(height: 12)
+            
+            Text(categoryViewModel.selectedActivity?.description ?? "활동 설명")
+                .font(.pretendardFont(.regular, size: 14))
+            
+            Spacer().frame(height: 24)
+            
+            Image(.Category.circleIcon)
+            
+            Spacer().frame(height: 24)
+            
+            Text(categoryViewModel.selectedActivity?.impactMessage ?? "장려메세지")
+                .font(.pretendardFont(.regular, size: 16))
+                .foregroundStyle(Color.gray500)
+            
+            Spacer().frame(height: 24)
+        }
+        .frame(width: 304, height: 356)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(
+                    categoryViewModel.selectedActivity?.isSuccess.backgroundColor ?? Color.white000
+                )
+        )
+        .padding(.horizontal, 35)
+    }
+    
+    private var finishActivityView: some View {
+        VStack(spacing: 16) {
+            Text("오늘의 활동을 모두 마쳤어요!")
+                .font(.pretendardFont(.semiBold, size: 18))
+                .foregroundColor(.black)
+        }
+        .frame(width: 304, height: 356)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Color.gray200)
+        )
+        .padding(.horizontal, 20)
+        .multilineTextAlignment(.center)
     }
 }
 

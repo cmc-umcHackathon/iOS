@@ -36,8 +36,7 @@ class CategoryViewModel: ObservableObject {
             if nextIndex < categoryModel.categories.count {
                 selectedActivity = categoryModel.categories[nextIndex] // 뷰 갱신 위한 주입
             } else {
-                // 마지막 뷰인 경우 갱신된 마지막 모델 주입
-                selectedActivity = categoryModel.categories[index]
+                selectedActivity = nil
             }
         }
     }
