@@ -95,22 +95,36 @@ fileprivate struct ActivityCardView: View {
     
     private var header: some View {
         return HStack {
-            Button {
-                print("cancel")
-            } label: {
-                Image(.Category.cancelIcon)
+            switch categoryViewModel.headerButtonState {
+            case .defaultValue:
+                failBtn
+                Spacer()
+                okBtn
+            case .success:
+                Spacer()
+                okBtn
+            case .fail:
+                Spacer()
+                failBtn
             }
-
-            Spacer()
-            
-            Button {
-                print("OK")
-            } label: {
-                Image(.Category.okIcon)
-            }
-
         }
         .padding(.horizontal, 20)
+    }
+    
+    private var okBtn: some View {
+        Button {
+            print("OK")
+        } label: {
+            Image(.Category.okIcon)
+        }
+    }
+    
+    private var failBtn: some View {
+        Button {
+            print("cancel")
+        } label: {
+            Image(.Category.cancelIcon)
+        }
     }
 }
 
