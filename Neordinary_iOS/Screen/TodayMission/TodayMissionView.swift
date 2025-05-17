@@ -10,12 +10,9 @@ import SwiftUI
 struct TodayMissionView: View {
     var body: some View {
         VStack {
-            HStack {
-                Image(.TodayMission.iconHomeWhite)
-                Spacer()
-                Image(.TodayMission.iconPersonWhite)
-            }
-            .padding(.horizontal, 20)
+                HeaderBar(categoryViewModel: categoryViewModel)
+                
+                Spacer().frame(height: 24)
             
             VStack(spacing: 30) {
                 HStack(spacing: 67) {
@@ -90,6 +87,28 @@ struct TodayMissionView: View {
         .background(Color.gray100)
     }
 }
+fileprivate struct HeaderBar: View {
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    
+    fileprivate var body: some View {
+        HStack {
+            Button {
+                print("Home")
+            } label: {
+                Image(.TodayMission.iconHomeWhite)
+            }
+            
+            Spacer()
+            
+            Button {
+                print("My")
+            } label: {
+                Image(.TodayMission.iconPersonWhite)
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+}
 
 struct TodayMissionCardView: View {
     @State var items = ["활동명", "활동명", "활동명"]
@@ -110,6 +129,7 @@ struct TodayMissionCardView: View {
         .cornerRadius(20)
     }
 }
+
 
 #Preview {
     TodayMissionCardView()
