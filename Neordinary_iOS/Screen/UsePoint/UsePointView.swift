@@ -66,7 +66,6 @@ fileprivate struct PointCheckView: View {
     }
 }
 
-// MARK: 완료한 미션 리스트 보여주는 뷰
 fileprivate struct PurchasableItemListView: View {
     @ObservedObject var usePointViewModel: UsePointViewModel
     
@@ -77,8 +76,7 @@ fileprivate struct PurchasableItemListView: View {
                 id: \.id
             ) { item in
                 Button {
-                    usePointViewModel.isShowPopup = true
-                    usePointViewModel.selectedItem = item
+                    usePointViewModel.purchaseItem(item)
                 } label: {
                     PurchasableItemView(item: item)
                 }
@@ -145,7 +143,7 @@ fileprivate struct PurchaceItemCheckingView: View {
                     .foregroundStyle(Color.white000)
                 
                 if let title = usePointViewModel.selectedItem?.title {
-                    Text(title)
+                    Text("\"\(title)\"")
                         .font(.pretendardFont(.semiBold, size: 24))
                         .foregroundStyle(Color.white000)
                 }

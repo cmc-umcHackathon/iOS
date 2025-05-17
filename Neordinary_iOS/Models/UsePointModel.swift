@@ -8,7 +8,7 @@
 import Foundation
 
 struct UsePointModel {
-    let myPoint: Int
+    var myPoint: Int
     let purchasableItemList: [PurchasableItem]
 }
 
