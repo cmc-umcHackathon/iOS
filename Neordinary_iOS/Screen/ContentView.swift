@@ -13,12 +13,16 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $router.path) {
             TodayMissionView(todayMissionViewModel: .init(router: router))
-        }
-        .navigationDestination(for: Route.self) { route in
-            switch route {
-            case .categoryDetail:
-                CategoryView()
-            }
+                .navigationDestination(for: Route.self) { route in
+                    switch route {
+                    case .categoryDetail:
+                        CategoryView(
+                            categoryViewModel: .init(),
+                            imagePickerViewModel: .init()
+                        )
+                        .navigationBarBackButtonHidden()
+                    }
+                }
         }
     }
 }

@@ -9,8 +9,8 @@ import SwiftUI
 import PhotosUI
 
 struct CategoryView: View {
-    @StateObject private var categoryViewModel: CategoryViewModel = .init()
-    @StateObject private var imagePickerViewModel: ImagePickerViewModel = .init()
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    @ObservedObject var imagePickerViewModel: ImagePickerViewModel
     @State private var showPhotosPicker = false
     
     var body: some View {
@@ -251,5 +251,5 @@ fileprivate struct ActivityRowView: View {
 }
 
 #Preview {
-    CategoryView()
+    CategoryView(categoryViewModel: .init(), imagePickerViewModel: .init())
 }
