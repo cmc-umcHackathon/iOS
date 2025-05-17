@@ -31,7 +31,11 @@ fileprivate struct HeaderBar: View {
     
     fileprivate var body: some View {
         HStack {
-            Image(.Category.homeIcon)
+            Button {
+                print("Home")
+            } label: {
+                Image(.Category.homeIcon)
+            }
             
             Spacer()
             
@@ -41,7 +45,11 @@ fileprivate struct HeaderBar: View {
             
             Spacer()
             
-            Image(.Category.myIcon)
+            Button {
+                print("My")
+            } label: {
+                Image(.Category.myIcon)
+            }
         }
         .padding(.horizontal, 20)
     }
@@ -85,11 +93,20 @@ fileprivate struct ActivityCardView: View {
     
     private var header: some View {
         return HStack {
-            Image(.Category.cancelIcon)
-            
+            Button {
+                print("cancel")
+            } label: {
+                Image(.Category.cancelIcon)
+            }
+
             Spacer()
             
-            Image(.Category.okIcon)
+            Button {
+                print("OK")
+            } label: {
+                Image(.Category.okIcon)
+            }
+
         }
         .padding(.horizontal, 20)
     }
@@ -117,15 +134,21 @@ fileprivate struct ActivityRowView: View {
     let categoryListModel: CategoryListModel
     
     fileprivate var body: some View {
-        HStack {
-            Image(.Category.leafIcon)
-            
-            Text(categoryListModel.title)
-                .font(.pretendardFont(.regular, size: 16))
-            
-            Spacer()
-            
-            porintView
+        
+        Button {
+            print(categoryListModel.title)
+        } label: {
+            HStack {
+                Image(.Category.leafIcon)
+                
+                Text(categoryListModel.title)
+                    .font(.pretendardFont(.regular, size: 16))
+                    .foregroundStyle(.black)
+                
+                Spacer()
+                
+                porintView
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
