@@ -6,14 +6,10 @@
 //
 
 import Foundation
-import PhotosUI
-import SwiftUI
 
-class CategoryViewModel: ObservableObject {
+final class CategoryViewModel: ObservableObject {
     @Published var categoryModel: CategoryModel = .sampleData
     @Published var selectedActivity: CategoryListModel? = nil
-    @Published var selectedItems: [PhotosPickerItem] = []
-    @Published var images: [UIImage] = []
     
     init() {
         selectedActivity = categoryModel.categories.first(where: { $0.isSuccess != .success })

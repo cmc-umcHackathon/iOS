@@ -10,6 +10,7 @@ import PhotosUI
 
 struct CategoryView: View {
     @StateObject private var categoryViewModel: CategoryViewModel = .init()
+    @StateObject private var imagePickerViewModel: ImagePickerViewModel = .init()
     @State private var showPhotosPicker = false
     
     var body: some View {
@@ -34,18 +35,13 @@ struct CategoryView: View {
         )
         .photosPicker(
             isPresented: $showPhotosPicker,
-            selection: $categoryViewModel.selectedItems,
+            selection: $imagePickerViewModel.selectedItems,
             maxSelectionCount: 1,
             matching: .images
         )
-        .onChange(of: categoryViewModel.selectedItems) { oldItems, newItems in
-            for item in newItems {
-                Task {
-                    if let data = try? await item.loadTransferable(type: Data.self),
-                       let image = UIImage(data: data) {
-                        categoryViewModel.images.append(image)
-                    }
-                }
+        .onChange(of: imagePickerViewModel.selectedItems) { oldItems, newItems in
+            Task {
+                await imagePickerViewModel.convertItemsToImages()
             }
         }
     }
