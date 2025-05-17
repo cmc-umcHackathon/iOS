@@ -14,9 +14,11 @@ struct CategoryView: View {
             
             Spacer().frame(height: 24)
             
-            CardView()
+            ActivityCardView()
             
-            Spacer()
+            Spacer().frame(height: 30)
+            
+            ActivityListView()
         }
         .background(Color.gray100)
     }
@@ -41,7 +43,7 @@ fileprivate struct HeaderBar: View {
     }
 }
 
-fileprivate struct CardView: View {
+fileprivate struct ActivityCardView: View {
     fileprivate var body: some View {
         VStack {
             Spacer().frame(height: 20)
@@ -84,6 +86,53 @@ fileprivate struct CardView: View {
             Image(.Category.okIcon)
         }
         .padding(.horizontal, 20)
+    }
+}
+
+fileprivate struct ActivityListView: View {
+    fileprivate var body: some View {
+        ScrollView {
+            LazyVStack {
+                ActivityRowView()
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+}
+
+fileprivate struct ActivityRowView: View {
+    fileprivate var body: some View {
+        HStack {
+            Image(.Category.leafIcon)
+            
+            Text("활동명")
+                .font(.pretendardFont(.regular, size: 16))
+            
+            Spacer()
+            
+            porintView
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white000)
+        )
+    }
+    
+    private var porintView: some View {
+        HStack {
+            Image(.Category.pointIcon)
+            
+            Text("11")
+        }
+        .padding(.trailing, 12)
+        .padding(.leading, 8)
+        .padding(.vertical, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 100)
+                .fill(Color.green200)
+        )
     }
 }
 
