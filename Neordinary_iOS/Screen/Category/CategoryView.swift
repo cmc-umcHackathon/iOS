@@ -10,13 +10,10 @@ import PhotosUI
 
 struct CategoryView: View {
     @ObservedObject var categoryViewModel: CategoryViewModel
-    @ObservedObject var imagePickerViewModel: ImagePickerViewModel
     @State private var showPhotosPicker = false
     
     var body: some View {
         VStack {
-            HeaderBar(categoryViewModel: categoryViewModel)
-            
             Spacer().frame(height: 24)
             
             ActivityCardView(
@@ -28,6 +25,9 @@ struct CategoryView: View {
             
             ActivityListView(categoryViewModel: categoryViewModel)
         }
+        .customNavigationBar(centerView: {
+            HeaderBar(categoryViewModel: categoryViewModel)
+        })
         .background(
             Image(.Category.bgImg)
                 .resizable()
@@ -35,13 +35,13 @@ struct CategoryView: View {
         )
         .photosPicker(
             isPresented: $showPhotosPicker,
-            selection: $imagePickerViewModel.selectedItems,
+            selection: $categoryViewModel.imagePickerManager.selectedItems,
             maxSelectionCount: 1,
             matching: .images
         )
-        .onChange(of: imagePickerViewModel.selectedItems) { oldItems, newItems in
+        .onChange(of: categoryViewModel.imagePickerManager.selectedItems) { oldItems, newItems in
             Task {
-                await imagePickerViewModel.convertItemsToImages()
+                await categoryViewModel.imagePickerManager.convertItemsToImages()
             }
         }
     }
@@ -53,7 +53,7 @@ fileprivate struct HeaderBar: View {
     fileprivate var body: some View {
         HStack {
             Button {
-                print("Home")
+                categoryViewModel.moveToHome()
             } label: {
                 Image(.Category.homeIcon)
             }
@@ -67,7 +67,7 @@ fileprivate struct HeaderBar: View {
             Spacer()
             
             Button {
-                print("My")
+                categoryViewModel.moveToMyPage()
             } label: {
                 Image(.Category.myIcon)
             }
@@ -236,7 +236,7 @@ fileprivate struct ActivityRowView: View {
     
     private var porintView: some View {
         HStack {
-            Image(.Category.pointIcon)
+            Image(.pointIcon)
             
             Text("\(categoryListModel.pointNum)")
         }
@@ -251,5 +251,5 @@ fileprivate struct ActivityRowView: View {
 }
 
 #Preview {
-    CategoryView(categoryViewModel: .init(), imagePickerViewModel: .init())
+    CategoryView(categoryViewModel: .init(router: NavigationRouter()))
 }

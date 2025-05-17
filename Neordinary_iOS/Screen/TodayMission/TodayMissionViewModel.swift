@@ -21,4 +21,8 @@ class TodayMissionViewModel: ObservableObject {
         print("moveToCategory")
         router.push(.categoryDetail)
     }
+    
+    func moveToMyPage() {
+        router.push(.myPage)
+    }
 }

@@ -10,9 +10,14 @@ import Foundation
 final class CategoryViewModel: ObservableObject {
     @Published var categoryModel: CategoryModel = .sampleData
     @Published var selectedActivity: CategoryListModel? = nil
+    @Published var imagePickerManager: ImagePickerManager = .init()
     
-    init() {
-        selectedActivity = categoryModel.categories.first(where: { $0.isSuccess != .success })
+    private let router: NavigationRouter
+    
+    init(router: NavigationRouter) {
+        self.router = router
+        // 미완료된 미션부터 보여줌
+        self.selectedActivity = categoryModel.categories.first(where: { $0.isSuccess != .success })
     }
     
     var headerButtonState: ActivityStateType {
@@ -39,5 +44,13 @@ final class CategoryViewModel: ObservableObject {
                 selectedActivity = nil
             }
         }
+    }
+    
+    func moveToHome() {
+        router.pop()
+    }
+    
+    func moveToMyPage() {
+        router.push(.myPage)
     }
 }
