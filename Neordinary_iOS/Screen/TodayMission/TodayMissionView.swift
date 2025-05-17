@@ -33,7 +33,6 @@ struct TodayMissionView: View {
             }
         }
         .ignoresSafeArea()
-        
     }
 }
 
