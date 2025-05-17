@@ -26,11 +26,19 @@ class CategoryViewModel: ObservableObject {
         }
     }
     
-    func updateActivityState(_ state: ActivityStateType) {
-        guard let selectedId = selectedActivity?.id else { return }
-        if let index = categoryModel.categories.firstIndex(where: { $0.id == selectedId }) {
+    func updateCurrentAndMoveNext(to state: ActivityStateType) {
+        guard let currentId = selectedActivity?.id else { return }
+        
+        if let index = categoryModel.categories.firstIndex(where: { $0.id == currentId }) {
             categoryModel.categories[index].isSuccess = state
-            selectedActivity = categoryModel.categories[index] // 뷰 갱신 위한 주입
+            
+            let nextIndex = index + 1
+            if nextIndex < categoryModel.categories.count {
+                selectedActivity = categoryModel.categories[nextIndex] // 뷰 갱신 위한 주입
+            } else {
+                // 마지막 뷰인 경우 갱신된 마지막 모델 주입
+                selectedActivity = categoryModel.categories[index]
+            }
         }
     }
 }

@@ -114,7 +114,7 @@ fileprivate struct ActivityCardView: View {
     private var okBtn: some View {
         Button {
             withAnimation {
-                categoryViewModel.updateActivityState(.success)
+                categoryViewModel.updateCurrentAndMoveNext(to: .success)
             }
         } label: {
             Image(.Category.okIcon)
@@ -124,7 +124,7 @@ fileprivate struct ActivityCardView: View {
     private var failBtn: some View {
         Button {
             withAnimation {
-                categoryViewModel.updateActivityState(.fail)
+                categoryViewModel.updateCurrentAndMoveNext(to: .fail)
             }
         } label: {
             Image(.Category.cancelIcon)
