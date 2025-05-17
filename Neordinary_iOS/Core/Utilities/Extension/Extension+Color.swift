@@ -24,6 +24,9 @@ extension Color {
 }
 
 extension Color {
+    static let black000 = Color(hex: "191D1F")
+    static let white000 = Color(hex: "ffffff")
+    
     static let green100 = Color(hex: "72CD77")
     static let green200 = Color(hex: "44C14B")
     static let green300 = Color(hex: "EDFFF2")
