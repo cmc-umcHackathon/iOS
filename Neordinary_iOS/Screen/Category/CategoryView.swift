@@ -10,7 +10,6 @@ import PhotosUI
 
 struct CategoryView: View {
     @ObservedObject var categoryViewModel: CategoryViewModel
-    @ObservedObject var imagePickerViewModel: ImagePickerViewModel
     @State private var showPhotosPicker = false
     
     var body: some View {
@@ -35,13 +34,13 @@ struct CategoryView: View {
         )
         .photosPicker(
             isPresented: $showPhotosPicker,
-            selection: $imagePickerViewModel.selectedItems,
+            selection: $categoryViewModel.imagePickerManager.selectedItems,
             maxSelectionCount: 1,
             matching: .images
         )
-        .onChange(of: imagePickerViewModel.selectedItems) { oldItems, newItems in
+        .onChange(of: categoryViewModel.imagePickerManager.selectedItems) { oldItems, newItems in
             Task {
-                await imagePickerViewModel.convertItemsToImages()
+                await categoryViewModel.imagePickerManager.convertItemsToImages()
             }
         }
     }
@@ -251,5 +250,5 @@ fileprivate struct ActivityRowView: View {
 }
 
 #Preview {
-    CategoryView(categoryViewModel: .init(), imagePickerViewModel: .init())
+    CategoryView(categoryViewModel: .init())
 }

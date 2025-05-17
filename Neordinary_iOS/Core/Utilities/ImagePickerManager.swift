@@ -8,7 +8,7 @@
 import PhotosUI
 import SwiftUI
 
-final class ImagePickerViewModel: ObservableObject {
+final class ImagePickerManager: ObservableObject {
     @Published var selectedItems: [PhotosPickerItem] = []
     @Published var images: [UIImage] = []
     
