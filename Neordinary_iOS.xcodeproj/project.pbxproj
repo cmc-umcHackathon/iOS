@@ -9,32 +9,31 @@
 /* Begin PBXBuildFile section */
 		0E7FA0CC2DD8637A00DF9E55 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0E7FA0CB2DD8637A00DF9E55 /* Alamofire */; };
 		0E7FA0D02DD863BB00DF9E55 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0E7FA0CF2DD863BB00DF9E55 /* Kingfisher */; };
+		0EBD2ECF2DD8793500B74F4D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 0EBD2ECE2DD8793500B74F4D /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E7FA0B32DD85FE200DF9E55 /* Ne(O)rdinary_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ne(O)rdinary_iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E7FA0B32DD85FE200DF9E55 /* Neordinary_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neordinary_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0E7FA0DE2DD869A900DF9E55 /* Exceptions for "Ne(O)rdinary_iOS" folder in "Ne(O)rdinary_iOS" target */ = {
+		0EBD2ECC2DD8790600B74F4D /* Exceptions for "Neordinary_iOS" folder in "Neordinary_iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Components/.gitkeep,
-				Core/Utilities/.gitkeep,
 				Models/.gitkeep,
-				Screen/.gitkeep,
 			);
-			target = 0E7FA0B22DD85FE200DF9E55 /* Ne(O)rdinary_iOS */;
+			target = 0E7FA0B22DD85FE200DF9E55 /* Neordinary_iOS */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0E7FA0B52DD85FE200DF9E55 /* Ne(O)rdinary_iOS */ = {
+		0E7FA0B52DD85FE200DF9E55 /* Neordinary_iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				0E7FA0DE2DD869A900DF9E55 /* Exceptions for "Ne(O)rdinary_iOS" folder in "Ne(O)rdinary_iOS" target */,
+				0EBD2ECC2DD8790600B74F4D /* Exceptions for "Neordinary_iOS" folder in "Neordinary_iOS" target */,
 			);
-			path = "Ne(O)rdinary_iOS";
+			path = Neordinary_iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -46,6 +45,7 @@
 			files = (
 				0E7FA0D02DD863BB00DF9E55 /* Kingfisher in Frameworks */,
 				0E7FA0CC2DD8637A00DF9E55 /* Alamofire in Frameworks */,
+				0EBD2ECF2DD8793500B74F4D /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,7 +55,8 @@
 		0E7FA0AA2DD85FE200DF9E55 = {
 			isa = PBXGroup;
 			children = (
-				0E7FA0B52DD85FE200DF9E55 /* Ne(O)rdinary_iOS */,
+				0E7FA0B52DD85FE200DF9E55 /* Neordinary_iOS */,
+				0EBD2ECD2DD8793500B74F4D /* Frameworks */,
 				0E7FA0B42DD85FE200DF9E55 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,17 +64,24 @@
 		0E7FA0B42DD85FE200DF9E55 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E7FA0B32DD85FE200DF9E55 /* Ne(O)rdinary_iOS.app */,
+				0E7FA0B32DD85FE200DF9E55 /* Neordinary_iOS.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0EBD2ECD2DD8793500B74F4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0E7FA0B22DD85FE200DF9E55 /* Ne(O)rdinary_iOS */ = {
+		0E7FA0B22DD85FE200DF9E55 /* Neordinary_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E7FA0C12DD85FE400DF9E55 /* Build configuration list for PBXNativeTarget "Ne(O)rdinary_iOS" */;
+			buildConfigurationList = 0E7FA0C12DD85FE400DF9E55 /* Build configuration list for PBXNativeTarget "Neordinary_iOS" */;
 			buildPhases = (
 				0E7FA0AF2DD85FE200DF9E55 /* Sources */,
 				0E7FA0B02DD85FE200DF9E55 /* Frameworks */,
@@ -84,15 +92,16 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0E7FA0B52DD85FE200DF9E55 /* Ne(O)rdinary_iOS */,
+				0E7FA0B52DD85FE200DF9E55 /* Neordinary_iOS */,
 			);
-			name = "Ne(O)rdinary_iOS";
+			name = Neordinary_iOS;
 			packageProductDependencies = (
 				0E7FA0CB2DD8637A00DF9E55 /* Alamofire */,
 				0E7FA0CF2DD863BB00DF9E55 /* Kingfisher */,
+				0EBD2ECE2DD8793500B74F4D /* Moya */,
 			);
 			productName = "Ne(O)rdinary_iOS";
-			productReference = 0E7FA0B32DD85FE200DF9E55 /* Ne(O)rdinary_iOS.app */;
+			productReference = 0E7FA0B32DD85FE200DF9E55 /* Neordinary_iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -110,7 +119,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0E7FA0AE2DD85FE200DF9E55 /* Build configuration list for PBXProject "Ne(O)rdinary_iOS" */;
+			buildConfigurationList = 0E7FA0AE2DD85FE200DF9E55 /* Build configuration list for PBXProject "Neordinary_iOS" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -129,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0E7FA0B22DD85FE200DF9E55 /* Ne(O)rdinary_iOS */,
+				0E7FA0B22DD85FE200DF9E55 /* Neordinary_iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -281,7 +290,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Ne(O)rdinary_iOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Neordinary_iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -310,7 +319,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Ne(O)rdinary_iOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Neordinary_iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -335,7 +344,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E7FA0AE2DD85FE200DF9E55 /* Build configuration list for PBXProject "Ne(O)rdinary_iOS" */ = {
+		0E7FA0AE2DD85FE200DF9E55 /* Build configuration list for PBXProject "Neordinary_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E7FA0BF2DD85FE400DF9E55 /* Debug */,
@@ -344,7 +353,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E7FA0C12DD85FE400DF9E55 /* Build configuration list for PBXNativeTarget "Ne(O)rdinary_iOS" */ = {
+		0E7FA0C12DD85FE400DF9E55 /* Build configuration list for PBXNativeTarget "Neordinary_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E7FA0C22DD85FE400DF9E55 /* Debug */,
@@ -392,6 +401,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0E7FA0CE2DD863BB00DF9E55 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		0EBD2ECE2DD8793500B74F4D /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E7FA0CD2DD863AD00DF9E55 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
