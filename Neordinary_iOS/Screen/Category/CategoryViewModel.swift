@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import Moya
 
 final class CategoryViewModel: ObservableObject {
     @Published var categoryModel: CategoryModel = .sampleData
     @Published var selectedActivity: CategoryListModel? = nil
     @Published var imagePickerManager: ImagePickerManager = .init()
+    let provider = MoyaProvider<CategoryAPI>(
+        plugins: [
+            AccessTokenPlugin { _ in "Bearer F8D12dRGr8K6Msjn4crKsOjamMOAvcwevDMMeBVQtO8lJhL" },
+            NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))
+        ]
+    )
     
     private let router: NavigationRouter
     
@@ -52,5 +59,37 @@ final class CategoryViewModel: ObservableObject {
     
     func moveToMyPage() {
         router.push(.myPage)
+    }
+    
+    func fetchAllCategories() async {
+        do {
+            let response = try await provider.requestAsync(.fetchAllCategory)
+            let result = try JSONDecoder().decode(APIResponse<EmptyData>.self, from: response.data)
+            print(result.status)
+        } catch {
+            print("요청 또는 디코딩 실패:", error.localizedDescription)
+        }
+    }
+    
+    func currentValidTodayMission() async {
+        do {
+            let response = try await provider.requestAsync(.fetchValidMission)
+            let result = try JSONDecoder().decode(APIResponse<ValidMissionItemResponse>.self, from: response.data)
+            result.data.map {
+                let model = CategoryListModel(
+                    checkImg: "Category/leafIcon",
+                    description: $0.description,
+                    impactMessage: $0.subtitle,
+                    title: $0.title,
+                    isSuccess: $0.todayActivity ? .success : .fail,
+                    pointNum: $0.point
+                )
+                
+                categoryModel.categories.append(model)
+            }
+            print(categoryModel.categories)
+        } catch {
+            print("요청 또는 디코딩 실패:", error.localizedDescription)
+        }
     }
 }
