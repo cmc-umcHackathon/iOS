@@ -6,6 +6,25 @@
 //
 
 import Foundation
+import SwiftUI
+
+enum ActivityStateType {
+    case defaultValue
+    case success
+    case fail
+    
+    var backgroundColor: Color {
+        switch self {
+        case .defaultValue:
+            return .white000
+        case .success:
+            return .green400
+        case .fail:
+            return .red100
+        }
+    }
+}
+
 
 struct CategoryModel {
     let categories: [CategoryListModel]
@@ -17,7 +36,7 @@ struct CategoryListModel: Identifiable {
     let description: String
     let impactMessage: String
     let title: String
-    let isSuccess: Bool
+    let isSuccess: ActivityStateType
     let pointNum: Int
 }
 
@@ -28,7 +47,7 @@ extension CategoryModel {
             description: "외출 시 일회용 컵 대신 텀블러를 사용하세요.",
             impactMessage: "나무 한그루가 15분 숨쉴 수 있는 시간",
             title: "텀블러 1회 사용하기",
-            isSuccess: true,
+            isSuccess: .success,
             pointNum: 11
         ),
         .init(
@@ -36,7 +55,7 @@ extension CategoryModel {
             description: "쓰레기 분리수거 철저히 하기",
             impactMessage: "나무 한그루가 15분 숨쉴 수 있는 시간",
             title: "쓰레기 분리수거 철저히 하기",
-            isSuccess: false,
+            isSuccess: .defaultValue,
             pointNum: 11
         ),
         .init(
@@ -44,7 +63,7 @@ extension CategoryModel {
             description: "외출 시 일회용 컵 대신 텀블러를 사용하세요.",
             impactMessage: "나무 한그루가 15분 숨쉴 수 있는 시간",
             title: "음식물 쓰레기 줄이기",
-            isSuccess: false,
+            isSuccess: .defaultValue,
             pointNum: 11
         ),
         .init(
@@ -52,7 +71,7 @@ extension CategoryModel {
             description: "외출 시 일회용 컵 대신 텀블러를 사용하세요.",
             impactMessage: "나무 한그루가 15분 숨쉴 수 있는 시간",
             title: "일회용품 사용하지 않기",
-            isSuccess: false,
+            isSuccess: .defaultValue,
             pointNum: 11
         ),
     ])
