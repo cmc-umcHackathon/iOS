@@ -206,7 +206,7 @@ fileprivate struct MissionRowView: View {
     
     private var porintView: some View {
         HStack {
-            Image(.Category.pointIcon)
+            Image(.pointIcon)
             
             Text("\(categoryListModel.pointNum)")
                 .font(.pretendardFont(.semiBold, size: 12))

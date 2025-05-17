@@ -16,11 +16,7 @@ struct ContentView: View {
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .categoryDetail:
-                        CategoryView(
-                            categoryViewModel: .init(),
-                            imagePickerViewModel: .init()
-                        )
-                        .navigationBarBackButtonHidden()
+                        CategoryView(categoryViewModel: .init())
                     }
                 }
         }

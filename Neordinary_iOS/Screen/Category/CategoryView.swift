@@ -14,8 +14,6 @@ struct CategoryView: View {
     
     var body: some View {
         VStack {
-            HeaderBar(categoryViewModel: categoryViewModel)
-            
             Spacer().frame(height: 24)
             
             ActivityCardView(
@@ -27,6 +25,9 @@ struct CategoryView: View {
             
             ActivityListView(categoryViewModel: categoryViewModel)
         }
+        .customNavigationBar(centerView: {
+            HeaderBar()
+        })
         .background(
             Image(.Category.bgImg)
                 .resizable()
@@ -47,8 +48,6 @@ struct CategoryView: View {
 }
 
 fileprivate struct HeaderBar: View {
-    @ObservedObject var categoryViewModel: CategoryViewModel
-    
     fileprivate var body: some View {
         HStack {
             Button {
@@ -235,7 +234,7 @@ fileprivate struct ActivityRowView: View {
     
     private var porintView: some View {
         HStack {
-            Image(.Category.pointIcon)
+            Image(.pointIcon)
             
             Text("\(categoryListModel.pointNum)")
         }

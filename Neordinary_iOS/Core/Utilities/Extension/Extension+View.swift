@@ -48,6 +48,7 @@ extension View {
             )
         )
     }
+    
     func customNavigationBar<C,R>(
         centerView: @escaping (()-> C),
         rightView: @escaping (()-> R)
@@ -60,6 +61,7 @@ extension View {
             )
         )
     }
+    
     func customNavigationBar<C,L>(
         leftView: @escaping (()-> L),
         centerView: @escaping (()-> C)
@@ -68,6 +70,18 @@ extension View {
             CustomNavigationBarModifier(
                 centerView: centerView,
                 leftView: leftView,
+                rightView: { EmptyView() }
+            )
+        )
+    }
+    
+    func customNavigationBar<C>(
+        centerView: @escaping (()-> C)
+    ) -> some View where C : View {
+        modifier(
+            CustomNavigationBarModifier(
+                centerView: centerView,
+                leftView: { EmptyView() },
                 rightView: { EmptyView() }
             )
         )
