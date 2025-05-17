@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+class TodayMissionViewModel: ObservableObject {
+    @Published var missionModel: CategoryModel = .sampleData2
+    @Published var popup: Bool = false
+    @Published var selectedMission: String = ""
+    
+}
