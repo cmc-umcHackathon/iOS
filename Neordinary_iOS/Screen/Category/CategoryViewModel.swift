@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+class CategoryViewModel: ObservableObject {
+    @Published var categoryModel: CategoryModel = .sampleData
+}

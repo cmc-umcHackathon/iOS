@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct CategoryView: View {
+    @StateObject private var categoryViewModel: CategoryViewModel = .init()
+    
     var body: some View {
         VStack {
-            HeaderBar()
+            HeaderBar(categoryViewModel: categoryViewModel)
             
             Spacer().frame(height: 24)
             
-            ActivityCardView()
+            ActivityCardView(categoryViewModel: categoryViewModel)
             
             Spacer().frame(height: 30)
             
-            ActivityListView()
+            ActivityListView(categoryViewModel: categoryViewModel)
         }
         .background(Color.gray100)
     }
 }
 
 fileprivate struct HeaderBar: View {
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    
     fileprivate var body: some View {
         HStack {
             Image(.Category.homeIcon)
@@ -44,6 +48,8 @@ fileprivate struct HeaderBar: View {
 }
 
 fileprivate struct ActivityCardView: View {
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    
     fileprivate var body: some View {
         VStack {
             Spacer().frame(height: 20)
@@ -90,10 +96,17 @@ fileprivate struct ActivityCardView: View {
 }
 
 fileprivate struct ActivityListView: View {
+    @ObservedObject var categoryViewModel: CategoryViewModel
+    
     fileprivate var body: some View {
         ScrollView {
             LazyVStack {
-                ActivityRowView()
+                ForEach(
+                    categoryViewModel.categoryModel.categories,
+                    id: \.id
+                ) { category in
+                    ActivityRowView(categoryListModel: category)
+                }
             }
             .padding(.horizontal, 20)
         }
@@ -101,11 +114,13 @@ fileprivate struct ActivityListView: View {
 }
 
 fileprivate struct ActivityRowView: View {
+    let categoryListModel: CategoryListModel
+    
     fileprivate var body: some View {
         HStack {
             Image(.Category.leafIcon)
             
-            Text("활동명")
+            Text(categoryListModel.title)
                 .font(.pretendardFont(.regular, size: 16))
             
             Spacer()
@@ -124,7 +139,7 @@ fileprivate struct ActivityRowView: View {
         HStack {
             Image(.Category.pointIcon)
             
-            Text("11")
+            Text("\(categoryListModel.pointNum)")
         }
         .padding(.trailing, 12)
         .padding(.leading, 8)
