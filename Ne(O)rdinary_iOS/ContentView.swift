@@ -8,17 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject private var router: NavigationRouter
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack(path: $router.path) {
+            Button {
+                router.push(.login)
+            } label: {
+                Text("Login")
+            }
         }
-        .padding()
+        .navigationDestination(for: Route.self) { route in
+            switch route {
+            case .login:
+                LoginView()
+            }
+        }
+    }
+}
+
+struct LoginView: View {
+    var body: some View {
+        Text("Login")
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(NavigationRouter())
 }
