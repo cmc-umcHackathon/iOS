@@ -1,12 +1,28 @@
 name: Neordinary_iOS
 options:
+  bundleIdPrefix: cmc-umcHackathon
   deploymentTarget:
     iOS: '18.0'
+
+packages:
+  Alamofire:
+    url: https://github.com/Alamofire/Alamofire
+    from: 5.10.2
+  Moya:
+    url: https://github.com/Moya/Moya
+    from: 15.0.3
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    from: 8.3.2
+  KakaoSDK:
+    url: https://github.com/kakao/kakao-ios-sdk
+    from: 2.24.2
+
 targets:
   Neordinary_iOS:
-    bundleId: cmc-umcHackathon.Ne-O-rdinary-iOS
     type: application
     platform: iOS
+    bundleId: Ne-O-rdinary-iOS
     sources:
       - path: Neordinary_iOS
     resources:
@@ -14,11 +30,12 @@ targets:
     dependencies:
       - sdk: MapKit.framework
       - sdk: CoreLocation.framework
-      - package: https://github.com/Alamofire/Alamofire
-        requirement: upToNextMajor 5.10.2
-      - package: https://github.com/Moya/Moya
-        requirement: upToNextMajor 15.0.3
-      - package: https://github.com/onevcat/Kingfisher
-        requirement: upToNextMajor 8.3.2
-      - package: https://github.com/kakao/kakao-ios-sdk
-        requirement: upToNextMajor 2.24.2
+      - package: Alamofire
+      - package: Moya
+      - package: Kingfisher
+      - package: KakaoSDK
+        product: KakaoSDKCommon
+      - package: KakaoSDK
+        product: KakaoSDKAuth
+      - package: KakaoSDK
+        product: KakaoSDKUser
