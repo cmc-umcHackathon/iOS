@@ -75,4 +75,10 @@ extension CategoryModel {
             pointNum: 11
         ),
     ])
+    
+    static let sampleData2: CategoryModel = .init(categories: [
+        .init(checkImg: "Category/unselectLeafIcon", title: "활동명1", pointNum: 11),
+        .init(checkImg: "Category/leafIcon", title: "활동명2", pointNum: 11),
+        .init(checkImg: "Category/leafIcon", title: "활동명3", pointNum: 11),
+    ])
 }
