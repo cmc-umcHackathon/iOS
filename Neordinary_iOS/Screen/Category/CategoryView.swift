@@ -29,7 +29,7 @@ struct CategoryView: View {
             HeaderBar(categoryViewModel: categoryViewModel)
         })
         .background(
-            Image(.Category.bgImg)
+            Image("")//.Category.bgImg
                 .resizable()
                 .ignoresSafeArea()
         )
