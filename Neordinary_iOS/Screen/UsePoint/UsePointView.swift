@@ -11,22 +11,28 @@ struct PointView: View {
     @ObservedObject var usePointViewModel: UsePointViewModel
     
     var body: some View {
-        VStack(spacing: 24) {
-            Group {
-                PointCheckView(usePointViewModel: usePointViewModel)
-                
-                PurchasableItemListView(usePointViewModel: usePointViewModel)
+        ZStack {
+            VStack(spacing: 24) {
+                Group {
+                    PointCheckView(usePointViewModel: usePointViewModel)
+                    
+                    PurchasableItemListView(usePointViewModel: usePointViewModel)
+                }
+                .padding(.horizontal, 20)
             }
-            .padding(.horizontal, 20)
+            .customNavigationBar {
+                BackButton()
+            } centerView: {
+                Text("포인트 사용")
+                    .font(.pretendardFont(.semiBold, size: 18))
+                    .foregroundStyle(.black)
+            }
+            .background(Color.gray100)
+            
+            if usePointViewModel.isShowPopup {
+                PurchaceItemCheckingView(usePointViewModel: usePointViewModel)
+            }
         }
-        .customNavigationBar {
-            BackButton()
-        } centerView: {
-            Text("포인트 사용")
-                .font(.pretendardFont(.semiBold, size: 18))
-                .foregroundStyle(.black)
-        }
-        .background(Color.gray100)
     }
 }
 
@@ -69,19 +75,25 @@ fileprivate struct PurchasableItemListView: View {
             ForEach(
                 usePointViewModel.usePointModel.purchasableItemList,
                 id: \.id
-            ) { mission in
-                PurchasableItemView(mission: mission)
+            ) { item in
+                Button {
+                    usePointViewModel.isShowPopup = true
+                    usePointViewModel.selectedItem = item
+                } label: {
+                    PurchasableItemView(item: item)
+                }
+
             }
         }
     }
 }
 
 fileprivate struct PurchasableItemView: View {
-    let mission: PurchasableItem
+    let item: PurchasableItem
     
     fileprivate var body: some View {
         HStack {
-            Image(mission.image)
+            Image(item.image)
                 .resizable()
                 .frame(width: 72, height: 72)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -89,11 +101,11 @@ fileprivate struct PurchasableItemView: View {
             Spacer().frame(width: 24)
             
             VStack(alignment: .leading, spacing: 26) {
-                Text(mission.title)
+                Text(item.title)
                     .font(.pretendardFont(.semiBold, size: 16))
                     .foregroundStyle(Color.gray600)
                 
-                Text("\(mission.point)P")
+                Text("\(item.point)P")
                     .font(.pretendardFont(.semiBold, size: 20))
                     .foregroundStyle(Color.green200)
             }
@@ -106,6 +118,48 @@ fileprivate struct PurchasableItemView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white000)
         )
+    }
+}
+
+fileprivate struct PurchaceItemCheckingView: View {
+    @ObservedObject var usePointViewModel: UsePointViewModel
+    
+    fileprivate var body: some View {
+        ZStack {
+            Color.black
+                .opacity(0.7)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    usePointViewModel.isShowPopup = false
+                    usePointViewModel.selectedItem = nil
+                }
+            
+            Image(.UsePoint.checkingCardBg)
+                .resizable()
+                .frame(width: 304, height: 224)
+            
+            VStack(spacing: 24) {
+                
+                Text("구매 완료")
+                    .font(.pretendardFont(.semiBold, size: 16))
+                    .foregroundStyle(Color.white000)
+                
+                if let title = usePointViewModel.selectedItem?.title {
+                    Text(title)
+                        .font(.pretendardFont(.semiBold, size: 24))
+                        .foregroundStyle(Color.white000)
+                }
+                
+                if let point = usePointViewModel.selectedItem?.point {
+                    Text("\(point)P 사용")
+                        .font(.pretendardFont(.semiBold, size: 24))
+                        .foregroundStyle(Color.white000)
+                }
+            }
+            .padding(.vertical, 48)
+            .padding(.horizontal, 20)
+
+        }
     }
 }
 

@@ -9,4 +9,9 @@ import Foundation
 
 class UsePointViewModel: ObservableObject {
     @Published var usePointModel: UsePointModel = .sampleData
+    @Published var isShowPopup: Bool = false
+    @Published var selectedItem: PurchasableItem? = nil
+    
+    
+    
 }
