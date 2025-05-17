@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct CategoryView: View {
     @StateObject private var categoryViewModel: CategoryViewModel = .init()
+    @State private var showPhotosPicker = false
     
     var body: some View {
         VStack {
@@ -16,7 +18,10 @@ struct CategoryView: View {
             
             Spacer().frame(height: 24)
             
-            ActivityCardView(categoryViewModel: categoryViewModel)
+            ActivityCardView(
+                showPhotosPicker: $showPhotosPicker,
+                categoryViewModel: categoryViewModel
+            )
             
             Spacer().frame(height: 30)
             
@@ -27,6 +32,22 @@ struct CategoryView: View {
                 .resizable()
                 .ignoresSafeArea()
         )
+        .photosPicker(
+            isPresented: $showPhotosPicker,
+            selection: $categoryViewModel.selectedItems,
+            maxSelectionCount: 1,
+            matching: .images
+        )
+        .onChange(of: categoryViewModel.selectedItems) { oldItems, newItems in
+            for item in newItems {
+                Task {
+                    if let data = try? await item.loadTransferable(type: Data.self),
+                       let image = UIImage(data: data) {
+                        categoryViewModel.images.append(image)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -60,6 +81,7 @@ fileprivate struct HeaderBar: View {
 }
 
 fileprivate struct ActivityCardView: View {
+    @Binding var showPhotosPicker: Bool
     @ObservedObject var categoryViewModel: CategoryViewModel
     
     fileprivate var body: some View {
@@ -92,6 +114,7 @@ fileprivate struct ActivityCardView: View {
         Button {
             withAnimation {
                 categoryViewModel.updateCurrentAndMoveNext(to: .success)
+                showPhotosPicker = true
             }
         } label: {
             Image(.Category.okIcon)
