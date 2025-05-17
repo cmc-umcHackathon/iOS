@@ -11,9 +11,11 @@ import SwiftUI
 struct Ne_O_rdinary_iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    @StateObject private var navigationRouter = NavigationRouter()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(navigationRouter)
         }
     }
 }
