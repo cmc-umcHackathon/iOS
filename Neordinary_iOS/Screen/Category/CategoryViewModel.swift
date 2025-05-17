@@ -25,4 +25,12 @@ class CategoryViewModel: ObservableObject {
             return .defaultValue
         }
     }
+    
+    func updateActivityState(_ state: ActivityStateType) {
+        guard let selectedId = selectedActivity?.id else { return }
+        if let index = categoryModel.categories.firstIndex(where: { $0.id == selectedId }) {
+            categoryModel.categories[index].isSuccess = state
+            selectedActivity = categoryModel.categories[index] // 뷰 갱신 위한 주입
+        }
+    }
 }

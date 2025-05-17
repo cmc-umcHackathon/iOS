@@ -104,8 +104,8 @@ fileprivate struct ActivityCardView: View {
                 Spacer()
                 okBtn
             case .fail:
-                Spacer()
                 failBtn
+                Spacer()
             }
         }
         .padding(.horizontal, 20)
@@ -113,7 +113,9 @@ fileprivate struct ActivityCardView: View {
     
     private var okBtn: some View {
         Button {
-            print("OK")
+            withAnimation {
+                categoryViewModel.updateActivityState(.success)
+            }
         } label: {
             Image(.Category.okIcon)
         }
@@ -121,7 +123,9 @@ fileprivate struct ActivityCardView: View {
     
     private var failBtn: some View {
         Button {
-            print("cancel")
+            withAnimation {
+                categoryViewModel.updateActivityState(.fail)
+            }
         } label: {
             Image(.Category.cancelIcon)
         }

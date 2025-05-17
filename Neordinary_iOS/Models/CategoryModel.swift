@@ -27,7 +27,7 @@ enum ActivityStateType {
 
 
 struct CategoryModel {
-    let categories: [CategoryListModel]
+    var categories: [CategoryListModel]
 }
 
 struct CategoryListModel: Identifiable {
@@ -36,7 +36,7 @@ struct CategoryListModel: Identifiable {
     let description: String
     let impactMessage: String
     let title: String
-    let isSuccess: ActivityStateType
+    var isSuccess: ActivityStateType
     let pointNum: Int
 }
 
