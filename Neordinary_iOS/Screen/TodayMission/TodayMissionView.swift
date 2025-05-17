@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TodayMissionView: View {
-    @StateObject private var todayMissionViewModel: TodayMissionViewModel = .init()
+    @ObservedObject var todayMissionViewModel: TodayMissionViewModel
     
     var body: some View {
         ZStack {
@@ -81,22 +81,27 @@ fileprivate struct MissionView: View {
                         .font(.pretendardFont(.semiBold, size: 14))
                         .customeStroke(color: Color.white, width: 1)
                 }
-                VStack(spacing: 4) {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 61.24454, height: 114.12398)
-                        .background(
-                            Image(.TodayMission.illustTumbler)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 61.24454116821289, height: 114.12397766113281)
-                                .clipped()
-                        )
-                        .rotationEffect(Angle(degrees: -5.41))
-                    Text("생활 습관")
-                        .font(.pretendardFont(.semiBold, size: 14))
-                        .customeStroke(color: Color.white, width: 1)
+                Button {
+                    todayMissionViewModel.moveToCategory()
+                } label: {
+                    VStack(spacing: 4) {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 61.24454, height: 114.12398)
+                            .background(
+                                Image(.TodayMission.illustTumbler)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 61.24454116821289, height: 114.12397766113281)
+                                    .clipped()
+                            )
+                            .rotationEffect(Angle(degrees: -5.41))
+                        Text("생활 습관")
+                            .font(.pretendardFont(.semiBold, size: 14))
+                            .customeStroke(color: Color.white, width: 1)
+                    }
                 }
+
             }
             HStack(spacing: 49) {
                 VStack(spacing: 4) {
@@ -260,5 +265,5 @@ fileprivate struct PopupView: View {
 
 
 #Preview {
-    TodayMissionView()
+    TodayMissionView(todayMissionViewModel: .init(router: NavigationRouter()))
 }
