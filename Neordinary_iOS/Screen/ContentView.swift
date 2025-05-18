@@ -23,7 +23,11 @@ struct ContentView: View {
                         MyPageView(myPageViewModel: .init(router: router))
                     case .usePoint:
                         UsePointView(usePointViewModel: .init(router: router))
+                    case .history:
+                        HistoryView(historyViewModel: .init(router: router))
                     }
+    
+                    
                 }
         }
     }

@@ -13,7 +13,7 @@ protocol BaseTarget: TargetType {}
 /// 공통으로 사용하는 Target
 extension BaseTarget {
     var baseURL: URL {
-        guard let url = URL(string: "https://블라블라.com") else {
+        guard let url = URL(string: "https://api.neodinary.store/") else {
             fatalError("URL 없어용")
         }
         return url
