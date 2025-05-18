@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-fileprivate struct HistoryView: View {
-    @StateObject var historyViewModel = HistoryViewModel()
-    fileprivate var body: some View {
+struct HistoryView: View {
+    @ObservedObject var historyViewModel: HistoryViewModel
+    
+    var body: some View {
         ZStack {
             Color.gray100
                 .ignoresSafeArea()
             
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 16) {
-                    ForEach(HistoryModel.sampleData) { history in
+                    ForEach(historyViewModel.histories) { history in
                         HistoryListView(historyModel: history)
                     }
                 }
@@ -33,6 +34,9 @@ fileprivate struct HistoryView: View {
                 rightView: {
                     Image(.History.iconPen)
                 })
+        }
+        .onAppear {
+            historyViewModel.getHistory()
         }
 
     }
@@ -85,6 +89,4 @@ fileprivate struct HistoryRowView: View {
     }
 }
 
-#Preview {
-    HistoryView()
-}
+
