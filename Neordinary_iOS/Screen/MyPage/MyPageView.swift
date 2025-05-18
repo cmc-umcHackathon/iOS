@@ -151,7 +151,7 @@ fileprivate struct CardView: View {
     fileprivate var body: some View {
         HStack {
             Button {
-                //
+                myPageViewModel.moveToUseHistoryView()
             } label: {
                 VStack(alignment: .leading, spacing: 13) {
                     Image(.MyPage.iconPaper)

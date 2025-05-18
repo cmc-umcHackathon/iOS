@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AddActionView: View {
-    @StateObject var actionViewModel = ActionViewModel()
+    @ObservedObject var actionViewModel: ActionViewModel
     
     var body: some View {
         ZStack {
@@ -127,8 +127,4 @@ struct AddActionView: View {
         }
 
     }
-}
-
-#Preview {
-    AddActionView()
 }

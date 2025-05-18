@@ -33,6 +33,10 @@ struct HistoryView: View {
                 },
                 rightView: {
                     Image(.History.iconPen)
+                        .onTapGesture {
+                            historyViewModel.moveToAddView()
+                        }
+ 
                 })
         }
         .onAppear {

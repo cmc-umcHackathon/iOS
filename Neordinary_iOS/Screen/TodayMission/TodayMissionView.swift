@@ -80,6 +80,7 @@ fileprivate struct MissionView: View {
                                     .clipped()
                             )
                         Text("소비")
+                            .foregroundStyle(.black)
                             .font(.pretendardFont(.semiBold, size: 14))
                             .customeStroke(color: Color.white, width: 1)
                     }
@@ -100,6 +101,7 @@ fileprivate struct MissionView: View {
                             )
                             .rotationEffect(Angle(degrees: -5.41))
                         Text("생활 습관")
+                            .foregroundStyle(.black)
                             .font(.pretendardFont(.semiBold, size: 14))
                             .customeStroke(color: Color.white, width: 1)
                     }
@@ -123,6 +125,7 @@ fileprivate struct MissionView: View {
                             )
                             .rotationEffect(Angle(degrees: 10.77))
                         Text("사회 활동")
+                            .foregroundStyle(.black)
                             .font(.pretendardFont(.semiBold, size: 14))
                             .customeStroke(color: Color.white, width: 1)
                     }
@@ -142,6 +145,7 @@ fileprivate struct MissionView: View {
                                     .clipped()
                             )
                         Text("이동")
+                            .foregroundStyle(.black)
                             .font(.pretendardFont(.semiBold, size: 14))
                             .customeStroke(color: Color.white, width: 1)
                     }
@@ -225,7 +229,7 @@ fileprivate struct MissionRowView: View {
             
             Text("\(missionListModel.pointNum)")
                 .font(.pretendardFont(.semiBold, size: 12))
-                .foregroundStyle(.white)
+                .foregroundStyle(missionListModel.isSuccess ? .white : .black)
         }
         .padding(.trailing, 12)
         .padding(.leading, 8)

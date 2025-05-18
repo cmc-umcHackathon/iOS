@@ -16,6 +16,7 @@ enum Route: Hashable {
     case myPage
     case usePoint
     case history
+    case add
 }
 
 /// Route와 마찬가지로 케이스 하나당 뷰 하나
