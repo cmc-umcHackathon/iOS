@@ -65,20 +65,24 @@ fileprivate struct MissionView: View {
     fileprivate var body: some View {
         VStack(spacing: 30) {
             HStack(spacing: 67) {
-                VStack(spacing: 4) {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 120, height: 88)
-                        .background(
-                            Image(.TodayMission.illustCart)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 120, height: 88)
-                                .clipped()
-                        )
-                    Text("소비")
-                        .font(.pretendardFont(.semiBold, size: 14))
-                        .customeStroke(color: Color.white, width: 1)
+                Button {
+                    todayMissionViewModel.moveToCategory()
+                } label: {
+                    VStack(spacing: 4) {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 120, height: 88)
+                            .background(
+                                Image(.TodayMission.illustCart)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 120, height: 88)
+                                    .clipped()
+                            )
+                        Text("소비")
+                            .font(.pretendardFont(.semiBold, size: 14))
+                            .customeStroke(color: Color.white, width: 1)
+                    }
                 }
                 Button {
                     todayMissionViewModel.moveToCategory()
@@ -103,36 +107,44 @@ fileprivate struct MissionView: View {
 
             }
             HStack(spacing: 49) {
-                VStack(spacing: 4) {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 90.18423, height: 116.70899)
-                        .background(
-                            Image(.TodayMission.illustFlag)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 90.1842269897461, height: 116.70899200439453)
-                                .clipped()
-                        )
-                        .rotationEffect(Angle(degrees: 10.77))
-                    Text("사회 활동")
-                        .font(.pretendardFont(.semiBold, size: 14))
-                        .customeStroke(color: Color.white, width: 1)
+                Button {
+                    todayMissionViewModel.moveToCategory()
+                } label: {
+                    VStack(spacing: 4) {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 90.18423, height: 116.70899)
+                            .background(
+                                Image(.TodayMission.illustFlag)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 90.1842269897461, height: 116.70899200439453)
+                                    .clipped()
+                            )
+                            .rotationEffect(Angle(degrees: 10.77))
+                        Text("사회 활동")
+                            .font(.pretendardFont(.semiBold, size: 14))
+                            .customeStroke(color: Color.white, width: 1)
+                    }
                 }
-                VStack(spacing: 4) {
-                    Rectangle()
-                        .foregroundColor(.clear)
-                        .frame(width: 120, height: 112)
-                        .background(
-                            Image(.TodayMission.illustCharacter)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 120, height: 112)
-                                .clipped()
-                        )
-                    Text("이동")
-                        .font(.pretendardFont(.semiBold, size: 14))
-                        .customeStroke(color: Color.white, width: 1)
+                Button {
+                    todayMissionViewModel.moveToCategory()
+                } label: {
+                    VStack(spacing: 4) {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .frame(width: 120, height: 112)
+                            .background(
+                                Image(.TodayMission.illustCharacter)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 120, height: 112)
+                                    .clipped()
+                            )
+                        Text("이동")
+                            .font(.pretendardFont(.semiBold, size: 14))
+                            .customeStroke(color: Color.white, width: 1)
+                    }
                 }
             }
         }
@@ -157,10 +169,10 @@ fileprivate struct TodayMissionCardView: View {
             
             LazyVStack {
                 ForEach(
-                    todayMissionViewModel.missionModel.categories,
+                    todayMissionViewModel.missionModel.missions,
                     id: \.id
-                ) { category in
-                    MissionRowView(todayMissionViewModel: todayMissionViewModel, categoryListModel: category)
+                ) { mission in
+                    MissionRowView(todayMissionViewModel: todayMissionViewModel, missionListModel: mission)
                 }
             }
             
@@ -169,23 +181,27 @@ fileprivate struct TodayMissionCardView: View {
         .frame(width: 335, alignment: .topLeading)
         .background(.white)
         .cornerRadius(20)
+        .onAppear {
+            todayMissionViewModel.getTodayMission()
+        }
     }
 }
 
 fileprivate struct MissionRowView: View {
     @ObservedObject var todayMissionViewModel: TodayMissionViewModel
-    let categoryListModel: CategoryListModel
+    let missionListModel: MissionListModel
     
     fileprivate var body: some View {
         
         Button {
-            todayMissionViewModel.selectedMission = categoryListModel.title
+            todayMissionViewModel.selectedMission = missionListModel.description
             todayMissionViewModel.popup = true
+            todayMissionViewModel.postTodayMission()
         } label: {
             HStack {
-                Image(.TodayMission.iconLeafGray)
+                Image(missionListModel.isSuccess ? .TodayMission.iconLeafGreen : .TodayMission.iconLeafGray)
                 
-                Text(categoryListModel.title)
+                Text(missionListModel.description)
                     .font(.pretendardFont(.regular, size: 16))
                     .foregroundStyle(.black)
                 
@@ -199,7 +215,7 @@ fileprivate struct MissionRowView: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color.green300)
+                .fill(missionListModel.isSuccess ? Color.green300 : Color.white)
         )
     }
     
@@ -207,7 +223,7 @@ fileprivate struct MissionRowView: View {
         HStack {
             Image(.pointIcon)
             
-            Text("\(categoryListModel.pointNum)")
+            Text("\(missionListModel.pointNum)")
                 .font(.pretendardFont(.semiBold, size: 12))
                 .foregroundStyle(.white)
         }
@@ -216,7 +232,7 @@ fileprivate struct MissionRowView: View {
         .padding(.vertical, 4)
         .background(
             RoundedRectangle(cornerRadius: 100)
-                .fill(Color.green200)
+                .fill(missionListModel.isSuccess ? Color.green200 : Color.gray100)
         )
     }
 }

@@ -27,6 +27,10 @@ struct MyPageView: View {
                 .padding(.horizontal, 20)
             
         }
+        .onAppear {
+            myPageViewModel.getPoint()
+            myPageViewModel.getActivityCount()
+        }
         .customNavigationBar {
             BackButton()
         } centerView: {
