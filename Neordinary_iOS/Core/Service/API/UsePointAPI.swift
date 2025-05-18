@@ -8,9 +8,8 @@
 import Moya
 
 enum UsePointAPI: BaseTarget {
-    case usePoint(productId: Int)
+    case usePoint(productId: Int64)
     case fetchProduct
-    case featchUserAllPoint
 }
 
 extension UsePointAPI {
@@ -18,14 +17,13 @@ extension UsePointAPI {
         switch self {
         case .usePoint: return "/api/products/purchase"
         case .fetchProduct: return "/api/products"
-        case .featchUserAllPoint: return "/api/my/activity-info"
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .usePoint: return .post
-        case .fetchProduct, .featchUserAllPoint:
+        case .fetchProduct:
             return .get
         }
     }
@@ -33,7 +31,7 @@ extension UsePointAPI {
     var task: Moya.Task {
         switch self {
         case .usePoint(let productId): return .requestJSONEncodable(productId)
-        case .fetchProduct, .featchUserAllPoint:
+        case .fetchProduct:
             return .requestPlain
         }
     }

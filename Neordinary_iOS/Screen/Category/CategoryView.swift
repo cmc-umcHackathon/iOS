@@ -44,9 +44,6 @@ struct CategoryView: View {
                 await categoryViewModel.imagePickerManager.convertItemsToImages()
             }
         }
-        .task {
-            await categoryViewModel.fetchAllCategories()
-        }
     }
 }
 

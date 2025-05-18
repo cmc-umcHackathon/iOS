@@ -33,9 +33,6 @@ struct UsePointView: View {
                 PurchaceItemCheckingView(usePointViewModel: usePointViewModel)
             }
         }
-        .task {
-            await usePointViewModel.fetchUserAllPoint()
-        }
     }
 }
 
@@ -79,9 +76,9 @@ fileprivate struct PurchasableItemListView: View {
                 id: \.id
             ) { item in
                 Button {
-                    usePointViewModel.purchaseItem(item)
                     Task {
                         await usePointViewModel.fetchProductList()
+                        await usePointViewModel.purchaseItem(item)
                     }
                 } label: {
                     PurchasableItemView(item: item)

@@ -8,28 +8,26 @@
 import Moya
 
 enum CategoryAPI: BaseTarget {
-    case fetchAllCategory
     case fetchValidMission
 }
 
 extension CategoryAPI {
     var path: String {
         switch self {
-        case .fetchAllCategory: return "/api/categories"
         case .fetchValidMission: return "/api/activities/by-category"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchAllCategory, .fetchValidMission:
+        case .fetchValidMission:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .fetchAllCategory, .fetchValidMission:
+        case .fetchValidMission:
             return .requestPlain
         }
     }

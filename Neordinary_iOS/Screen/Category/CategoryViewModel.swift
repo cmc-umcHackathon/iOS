@@ -61,16 +61,6 @@ final class CategoryViewModel: ObservableObject {
         router.push(.myPage)
     }
     
-    func fetchAllCategories() async {
-        do {
-            let response = try await provider.requestAsync(.fetchAllCategory)
-            let result = try JSONDecoder().decode(APIResponse<EmptyData>.self, from: response.data)
-            print(result.status)
-        } catch {
-            print("요청 또는 디코딩 실패:", error.localizedDescription)
-        }
-    }
-    
     func currentValidTodayMission() async {
         do {
             let response = try await provider.requestAsync(.fetchValidMission)
@@ -87,7 +77,6 @@ final class CategoryViewModel: ObservableObject {
                 
                 categoryModel.categories.append(model)
             }
-            print(categoryModel.categories)
         } catch {
             print("요청 또는 디코딩 실패:", error.localizedDescription)
         }
