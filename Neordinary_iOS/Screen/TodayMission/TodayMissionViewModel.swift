@@ -19,9 +19,28 @@ struct MissionListModel: Identifiable {
     let pointNum: Int
 }
 
+extension MissionModel {
+    static let sampleData2: MissionModel = .init(missions: [
+        .init(
+            description: "텀블러 1회 사용하기",
+            isSuccess: true,
+            pointNum: 11
+        ),
+        .init(
+            description: "쓰레기 분리수거 철저히 하기",
+            isSuccess: false,
+            pointNum: 11
+        ),
+        .init(
+            description: "음식물 쓰레기 줄이기",
+            isSuccess: false,
+            pointNum: 11
+        ),
+    ])
+}
 class TodayMissionViewModel: ObservableObject {
     private var router: NavigationRouter
-    @Published var missionModel: MissionModel = MissionModel(missions: [])
+    @Published var missionModel: MissionModel = .sampleData2
     @Published var popup: Bool = false
     @Published var selectedMission: String = ""
     @Published var selectedId: Int = 0

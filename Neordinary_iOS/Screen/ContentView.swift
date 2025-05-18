@@ -25,9 +25,9 @@ struct ContentView: View {
                         UsePointView(usePointViewModel: .init(router: router))
                     case .history:
                         HistoryView(historyViewModel: .init(router: router))
+                    case .add:
+                        AddActionView(actionViewModel: .init())
                     }
-    
-                    
                 }
         }
     }

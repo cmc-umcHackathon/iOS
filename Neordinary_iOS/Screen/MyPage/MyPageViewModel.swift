@@ -33,6 +33,10 @@ class MyPageViewModel: ObservableObject {
         router.push(.usePoint)
     }
     
+    func moveToUseHistoryView() {
+        router.push(.history)
+    }
+    
     func getActivityCount() {
         dataManager.getActivityCount()
             .sink { [weak self] completion in
