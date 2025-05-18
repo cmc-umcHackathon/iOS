@@ -22,7 +22,7 @@ extension MyPage: MyPageProtocol {
     
     func getPoint() -> AnyPublisher<Int, any Error> {
         let url = "https://api.neodinary.store/api/my/activity-info"
-        let token = "F8D12dRGr8K6Msjn4crKsOjamMOAvcwevDMMeBVQtO8lJhL" //Keychain.getKeychainValue(forKey: .accessToken) ?? ""
+        let token = Config.jwt
         return AF.request(url,
                           method: .get,
                           parameters: nil,

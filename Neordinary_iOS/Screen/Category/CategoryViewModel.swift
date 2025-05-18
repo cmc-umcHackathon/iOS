@@ -14,7 +14,7 @@ final class CategoryViewModel: ObservableObject {
     @Published var imagePickerManager: ImagePickerManager = .init()
     let provider = MoyaProvider<CategoryAPI>(
         plugins: [
-            AccessTokenPlugin { _ in "Bearer F8D12dRGr8K6Msjn4crKsOjamMOAvcwevDMMeBVQtO8lJhL" },
+            AccessTokenPlugin { _ in "Bearer \(Config.jwt)" },
             NetworkLoggerPlugin(configuration: .init(logOptions: .verbose))
         ]
     )

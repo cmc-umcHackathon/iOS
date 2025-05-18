@@ -16,7 +16,7 @@ class UsePointViewModel: ObservableObject {
     private let router: NavigationRouter
     let provider = MoyaProvider<UsePointAPI>(
         plugins: [
-            AccessTokenPlugin { _ in "Bearer F8D12dRGr8K6Msjn4crKsOjamMOAvcwevDMMeBVQtO8lJhL" },
+            AccessTokenPlugin { _ in "Bearer \(Config.jwt)"},
         ]
     )
     

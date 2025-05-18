@@ -22,4 +22,12 @@ enum Config {
         print(apiKey)
         return apiKey
     }()
+    
+    static let jwt: String = {
+        guard let apiKey = Config.infoDictionary["JWT"] as? String else {
+            fatalError()
+        }
+        print(apiKey)
+        return apiKey
+    }()
 }

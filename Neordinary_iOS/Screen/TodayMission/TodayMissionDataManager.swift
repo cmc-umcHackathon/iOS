@@ -48,7 +48,7 @@ class TodayMission {
 extension TodayMission: TodayMissionProtocol {
     func postTodayMission(id: Int) -> AnyPublisher<Void, NetworkError> {
         let url = "https://api.neodinary.store/api/activity-histories"
-        let token = "F8D12dRGr8K6Msjn4crKsOjamMOAvcwevDMMeBVQtO8lJhL" //Keychain.getKeychainValue(forKey: .accessToken) ?? ""
+        let token = Config.jwt
         let request = TodayMissionRequest(categoryId: id)
         return AF.request(url,
                           method: .post,
